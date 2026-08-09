@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Face Authentication System{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="auth-container">
+        <div class="auth-card">
+            <h2>Login</h2>
+            
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('password')">Password</button>
+                <button class="tab-btn" onclick="switchTab('face')">Face Recognition</button>
+            </div>
+
+            <!-- Password Login Tab -->
+            <div id="password-tab" class="tab-content active">
+                <form id="login-form" onsubmit="handlePasswordLogin(event)">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    
+                    <div class="forgot-password-link">
+                        <a href="/auth/forgot-password">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+
+                <p class="auth-link">
+                    Don't have an account? <a href="{{ url_for('frontend.register') }}">Register here</a>
+                </p>
+            </div>
+
+            <!-- Face Login Tab -->
+            <div id="face-tab" class="tab-content">
+                <div class="face-login-container">
+                    <p class="info-text">Position your face in the frame and click "Authenticate"</p>
+                    <a href="{{ url_for('frontend.face_login') }}" class="btn btn-primary">Start Face Login</a>
+                </div>
+            </div>
+
+            <div id="message" class="message"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+{% endblock %}

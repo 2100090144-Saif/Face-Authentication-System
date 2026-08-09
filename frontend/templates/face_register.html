@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Register Face - Face Authentication System{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="face-container">
+        <h2>Register Your Face</h2>
+        <p class="subtitle">Position your face in the frame and capture</p>
+
+        <div class="camera-container">
+            <video id="video" autoplay playsinline></video>
+            <canvas id="canvas" style="display: none;"></canvas>
+            <div id="face-overlay" class="face-overlay"></div>
+        </div>
+
+        <div class="camera-controls">
+            <button id="start-camera" onclick="startCamera()" class="btn btn-primary">Start Camera</button>
+            <button id="capture-btn" onclick="captureAndRegister()" class="btn btn-success" style="display: none;">Capture & Register</button>
+            <button id="retry-btn" onclick="retryCapture()" class="btn btn-secondary" style="display: none;">Retry</button>
+            <a href="{{ url_for('frontend.settings') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+
+        <div id="status" class="status-message"></div>
+        <div id="message" class="message"></div>
+
+        <div class="instructions">
+            <h3>Instructions:</h3>
+            <ul>
+                <li>Ensure good lighting</li>
+                <li>Look directly at the camera</li>
+                <li>Keep your face centered in the frame</li>
+                <li>Remove glasses if possible</li>
+                <li>Maintain a neutral expression</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/face_register.js') }}"></script>
+{% endblock %}

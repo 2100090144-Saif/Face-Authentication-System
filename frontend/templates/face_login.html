@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Face Login - Face Authentication System{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="face-container">
+        <h2>Face Authentication</h2>
+        <p class="subtitle">Position your face in the frame to login</p>
+
+        <div class="camera-container">
+            <video id="video" autoplay playsinline></video>
+            <canvas id="canvas" style="display: none;"></canvas>
+            <div id="face-overlay" class="face-overlay"></div>
+        </div>
+
+        <div class="camera-controls">
+            <button id="start-camera" onclick="startCamera()" class="btn btn-primary">Start Camera</button>
+            <button id="authenticate-btn" onclick="authenticateWithFace()" class="btn btn-success" style="display: none;">Authenticate</button>
+            <button id="retry-btn" onclick="retryCapture()" class="btn btn-secondary" style="display: none;">Retry</button>
+            <a href="{{ url_for('frontend.login') }}" class="btn btn-secondary">Back to Login</a>
+        </div>
+
+        <div id="status" class="status-message"></div>
+        <div id="message" class="message"></div>
+
+        <div class="alternative-login">
+            <p>Having trouble? <a href="{{ url_for('frontend.login') }}">Use password login instead</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/face_login.js') }}"></script>
+{% endblock %}

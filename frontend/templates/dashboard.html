@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Face Authentication System{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="dashboard-container">
+        <div class="welcome-card">
+            <h2>Welcome, {{ user.username }}! 🎉</h2>
+            <p class="subtitle">You have successfully logged in</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="dashboard-card">
+                <div class="card-icon">👤</div>
+                <h3>Profile</h3>
+                <p><strong>Username:</strong> {{ user.username }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-icon">🔐</div>
+                <h3>Face Recognition</h3>
+                <p>
+                    <strong>Status:</strong> 
+                    {% if user.face_recognition_enabled %}
+                        <span class="status-enabled">Enabled</span>
+                    {% else %}
+                        <span class="status-disabled">Disabled</span>
+                    {% endif %}
+                </p>
+                <a href="{{ url_for('frontend.settings') }}" class="btn btn-secondary">Manage Settings</a>
+            </div>
+        </div>
+
+        <div class="quick-actions">
+            <h3>Quick Actions</h3>
+            <div class="action-buttons">
+                <a href="{{ url_for('frontend.settings') }}" class="btn btn-primary">Settings</a>
+                {% if not user.face_recognition_enabled %}
+                    <a href="{{ url_for('frontend.face_register') }}" class="btn btn-success">Enable Face Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Settings - Face Authentication System{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="settings-container">
+        <h2>Settings</h2>
+
+        <div class="settings-card">
+            <h3>Face Recognition</h3>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <h4>Face Login Status</h4>
+                    <p id="face-status-text">Loading...</p>
+                </div>
+                <div class="setting-action">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="face-toggle" onchange="toggleFaceRecognition()">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div id="face-actions" class="face-actions" style="display: none;">
+                <p class="info-text">Face recognition is enabled. You can:</p>
+                <div class="action-buttons">
+                    <a href="{{ url_for('frontend.face_register') }}" class="btn btn-primary">Re-register Face</a>
+                    <button onclick="deleteFaceData()" class="btn btn-danger">Delete Face Data</button>
+                </div>
+            </div>
+
+            <div id="face-register-prompt" class="face-register-prompt" style="display: none;">
+                <p class="info-text">Enable face recognition to login with your face.</p>
+                <a href="{{ url_for('frontend.face_register') }}" class="btn btn-success">Register Your Face</a>
+            </div>
+        </div>
+
+        <div id="message" class="message"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/settings.js') }}"></script>
+{% endblock %}
